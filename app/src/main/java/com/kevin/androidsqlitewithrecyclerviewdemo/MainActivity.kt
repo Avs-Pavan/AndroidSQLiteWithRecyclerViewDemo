@@ -14,6 +14,7 @@ class MainActivity : AppCompatActivity() {
     var editPerson: Person? = null
     var isActionMode = false
     var count = 0
+    var isEditMode = false
 
     // View Binding
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
@@ -88,15 +89,37 @@ class MainActivity : AppCompatActivity() {
 
         binding.submitBtn.setOnClickListener {
 
+
             if (binding.nameEt.validate() && binding.ageEt.validate() && binding.addressEt.validate() && binding.professionEt.validate()) {
                 val name = binding.nameEt.textString()
                 val age = binding.ageEt.textInt()
                 val profession = binding.professionEt.textString()
                 val address = binding.addressEt.textString()
 
-                val person = Person(0, name, age, profession, address)
-                addPerson(person)
-//                clearFields()
+                if (!isEditMode) {
+                    val person = Person(0, name, age, profession, address)
+                    addPerson(person)
+                    clearFields()
+                } else {
+                    editPerson?.let {
+                        it.name = name
+                        it.age = age
+                        it.profession = profession
+                        it.address = address
+                        if (sqliteHelper.updateOne(it)) {
+                            Toast.makeText(this, "Person updated successfully", Toast.LENGTH_SHORT)
+                                .show()
+                            mAdapter.notifyItemChanged(personList.indexOf(it))
+                        } else {
+                            Toast.makeText(this, "Failed to update person", Toast.LENGTH_SHORT)
+                                .show()
+                        }
+
+                    }
+                    clearFields()
+                    binding.cancelBtn.hide()
+                    isEditMode = false
+                }
             }
 
         }
@@ -104,7 +127,7 @@ class MainActivity : AppCompatActivity() {
         binding.delete.setOnClickListener {
             if (selectedIds.isNotEmpty()) {
 
-               // create strign array
+                // create strign array
                 val ids = Array<String>(selectedIds.size) { i -> selectedIds[i].toString() }
                 sqliteHelper.deleteMultiple(ids)
 
@@ -116,10 +139,23 @@ class MainActivity : AppCompatActivity() {
                 count = 0
             }
         }
+
+        binding.cancelBtn.setOnClickListener {
+            clearFields()
+            binding.cancelBtn.hide()
+            editPerson = null
+            isEditMode = false
+        }
     }
 
     private fun startEditAction(person: Person) {
-
+        isEditMode = true
+        this.editPerson = person
+        binding.nameEt.setText(person.name)
+        binding.ageEt.setText(person.age.toString())
+        binding.professionEt.setText(person.profession)
+        binding.addressEt.setText(person.address)
+        binding.cancelBtn.show()
     }
 
     private fun restoreList() {
