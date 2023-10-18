@@ -1,5 +1,6 @@
 package com.kevin.androidsqlitewithrecyclerviewdemo
 
+import android.view.View
 import android.widget.EditText
 
 
@@ -18,9 +19,17 @@ fun EditText.textLong(): Long {
 fun EditText.validate(): Boolean {
     return if (this.textString().isNotEmpty())
         true
-    else
-    {
+    else {
         this.error = "Field cannot be empty"
         false
     }
+}
+
+
+fun View.show() {
+    this.visibility = View.VISIBLE
+}
+
+fun View.hide() {
+    this.visibility = View.GONE
 }

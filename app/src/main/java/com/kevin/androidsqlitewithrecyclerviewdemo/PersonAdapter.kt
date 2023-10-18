@@ -1,17 +1,21 @@
 package com.kevin.androidsqlitewithrecyclerviewdemo
 
+import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.kevin.androidsqlitewithrecyclerviewdemo.databinding.ActivityMainBinding
 import com.kevin.androidsqlitewithrecyclerviewdemo.databinding.PersonRowBinding
 import com.kevin.androidsqlitewithrecyclerviewdemo.pojo.Person
 
-class PersonAdapter(private val personList: List<Person>): RecyclerView.Adapter<PersonAdapter.PersonViewHolder>() {
+class PersonAdapter(
+    private val personList: List<Person>,
+    private var isActionMode: Boolean,
+    private val listener: RecyclerListener
+) :
+    RecyclerView.Adapter<PersonAdapter.PersonViewHolder>() {
 
-  inner class PersonViewHolder(val binding: PersonRowBinding): ViewHolder(binding.root)
+    inner class PersonViewHolder(val binding: PersonRowBinding) : ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonViewHolder {
         val binding = PersonRowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -28,6 +32,34 @@ class PersonAdapter(private val personList: List<Person>): RecyclerView.Adapter<
         holder.binding.age.text = person.age.toString()
         holder.binding.profession.text = person.profession
         holder.binding.address.text = person.address
+        if (isActionMode) {
+            holder.binding.linearLayoutCheckBox.visibility = ViewGroup.VISIBLE
+        } else
+            holder.binding.linearLayoutCheckBox.visibility = ViewGroup.GONE
 
+        holder.itemView.setOnLongClickListener {
+            listener.onLongPress(position)
+            true
+        }
+
+        holder.itemView.setOnClickListener {
+            with(holder.binding.checkBox) {
+                isChecked = !isChecked
+            }
+            listener.onClick(person.id, position)
+            true
+        }
+
+        holder.binding.checkBox.setOnCheckedChangeListener { _, _ ->
+
+            listener.onClick(person.id, position)
+        }
+
+    }
+
+
+    fun setActionMode(boolean: Boolean) {
+        this.isActionMode = boolean
+        notifyDataSetChanged()
     }
 }
