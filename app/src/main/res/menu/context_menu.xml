@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_button_delete"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/baseline_delete_forever_24"
+        android:title="Delete" />
+    <item
+        android:id="@+id/action_button_cancel"
+        app:showAsAction="ifRoom|withText"
+        android:icon="@drawable/baseline_cancel_24"
+        android:title="Cancel" />
+</menu>

@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.kevin.androidsqlitewithrecyclerviewdemo"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.kevin.androidsqlitewithrecyclerviewdemo"
