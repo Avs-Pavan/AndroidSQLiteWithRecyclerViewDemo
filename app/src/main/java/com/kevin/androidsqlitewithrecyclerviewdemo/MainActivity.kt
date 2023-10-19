@@ -11,10 +11,10 @@ import com.kevin.androidsqlitewithrecyclerviewdemo.sqlite.SQLiteHelper
 class MainActivity : AppCompatActivity() {
 
 
-    var editPerson: Person? = null
+    private var editPerson: Person? = null
     var isActionMode = false
     var count = 0
-    var isEditMode = false
+    private var isEditMode = false
 
     // View Binding
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
@@ -84,7 +84,9 @@ class MainActivity : AppCompatActivity() {
             mAdapter.setActionMode(isActionMode)
             binding.toolbar.hide()
             count = 0
-
+            selectedIds.clear()
+            binding.count.text = "$count selected"
+            binding.delete.hide()
         }
 
         binding.submitBtn.setOnClickListener {
@@ -128,15 +130,24 @@ class MainActivity : AppCompatActivity() {
             if (selectedIds.isNotEmpty()) {
 
                 // create strign array
-                val ids = Array<String>(selectedIds.size) { i -> selectedIds[i].toString() }
-                sqliteHelper.deleteMultiple(ids)
+                val ids = Array(selectedIds.size) { i -> selectedIds[i].toString() }
+                var deleted = sqliteHelper.deleteMultiple(ids.joinToString())
 
-                restoreList()
-                isActionMode = false
-                mAdapter.setActionMode(isActionMode)
+                if (deleted) {
+                    Toast.makeText(this, "Data deleted successfully", Toast.LENGTH_SHORT).show()
+                    restoreList()
+                    isActionMode = false
+                    mAdapter.setActionMode(isActionMode)
 
-                binding.toolbar.hide()
-                count = 0
+                    binding.toolbar.hide()
+                    count = 0
+                    selectedIds.clear()
+                    binding.count.text = "$count selected"
+                    binding.delete.hide()
+                } else {
+                    Toast.makeText(this, "Failed to delete data", Toast.LENGTH_SHORT).show()
+                }
+
             }
         }
 

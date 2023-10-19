@@ -5,86 +5,87 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="10dp"
     android:layout_margin="5dp"
+    android:id="@+id/cardView"
     android:elevation="7dp"
     android:layout_height="wrap_content">
 
 
-<androidx.appcompat.widget.LinearLayoutCompat android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:gravity="center"
-    android:padding="10dp">
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/linearLayoutCheckBox"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content">
-        <androidx.appcompat.widget.AppCompatCheckBox
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/checkBox"/>
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:orientation="vertical"
+        android:layout_height="match_parent"
         android:gravity="center"
-        android:layout_height="wrap_content">
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:orientation="horizontal"
-            android:layout_margin="5dp"
-            android:id="@+id/ll1"
-            app:layout_constraintStart_toEndOf="@id/linearLayoutCheckBox"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:id="@+id/name"
-                android:text="name"
-                />
+        android:orientation="horizontal"
+        android:padding="10dp">
 
-            <TextView
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/linearLayoutCheckBox"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/checkBox"
+                android:clickable="false"
                 android:layout_width="match_parent"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:id="@+id/profession"
-                android:text="profession"
-                />
+                android:layout_height="wrap_content" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            app:layout_constraintTop_toBottomOf="@id/ll1"
-            android:orientation="horizontal"
-            android:layout_margin="5dp"
-            app:layout_constraintStart_toEndOf="@id/linearLayoutCheckBox"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/age"
-                android:layout_weight="1"
-                android:text="name"
-                />
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
 
-            <TextView
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/ll1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/address"
-                android:layout_weight="1"
-                android:text="profession"
-                />
+                android:layout_margin="5dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toEndOf="@id/linearLayoutCheckBox"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="name" />
+
+                <TextView
+                    android:id="@+id/profession"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="profession" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toEndOf="@id/linearLayoutCheckBox"
+                app:layout_constraintTop_toBottomOf="@id/ll1">
+
+                <TextView
+                    android:id="@+id/age"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="name" />
+
+                <TextView
+                    android:id="@+id/address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="profession" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.appcompat.widget.LinearLayoutCompat>
+
+
     </androidx.appcompat.widget.LinearLayoutCompat>
-
-
-
-
-</androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.cardview.widget.CardView>

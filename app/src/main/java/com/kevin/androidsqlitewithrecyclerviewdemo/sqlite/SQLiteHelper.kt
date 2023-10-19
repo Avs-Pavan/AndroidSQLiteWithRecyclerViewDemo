@@ -85,12 +85,12 @@ class SQLiteHelper(context: Context) :
     }
 
     // delete multiple rows from the table
-    fun deleteMultiple(list: Array<String>): Boolean {
+    fun deleteMultiple(vararg ids: String): Boolean {
         // Get the database in write mode
         val db = this.writableDatabase
 
         // Delete the row
-        val rows = db.delete(TABLE_NAME, "${Constants.COLUMN_ID} = ?", list)
+        val rows = db.delete(TABLE_NAME, "${Constants.COLUMN_ID} IN (${ids.joinToString()})", null )
 
         // Close the database connection
         db.close()

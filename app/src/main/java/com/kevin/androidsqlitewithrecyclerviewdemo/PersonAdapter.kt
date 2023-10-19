@@ -34,25 +34,22 @@ class PersonAdapter(
         holder.binding.address.text = person.address
         if (isActionMode) {
             holder.binding.linearLayoutCheckBox.visibility = ViewGroup.VISIBLE
-        } else
+        } else{
+            holder.binding.checkBox.isChecked = false
             holder.binding.linearLayoutCheckBox.visibility = ViewGroup.GONE
+        }
 
-        holder.itemView.setOnLongClickListener {
+        holder.binding.cardView.setOnLongClickListener {
             listener.onLongPress(position)
             true
         }
 
-        holder.itemView.setOnClickListener {
+        holder.binding.cardView.setOnClickListener {
             with(holder.binding.checkBox) {
                 isChecked = !isChecked
             }
             listener.onClick(person.id, position)
             true
-        }
-
-        holder.binding.checkBox.setOnCheckedChangeListener { _, _ ->
-
-            listener.onClick(person.id, position)
         }
 
     }
